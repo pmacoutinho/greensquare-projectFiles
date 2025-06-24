@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mock Checkout</title>
+  <!-- AWS JS SDK (latest version at time of writing) -->
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1486.0.min.js"></script>
+  <style>
+    /* Basic reset & box-sizing */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+      background-color: #fafafa;
+      color: #1a1a1a;
+      min-height: 100%;
+      width: 100%;
+    }
+
+    .checkout-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+    .checkout-container {
+      background: #fff;
+      width: 100%;
+      max-width: 420px;
+      border-radius: 8px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+      padding: 24px;
+    }
+
+    /* Branding/Top area */
+    .branding {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .branding-title {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    /* Order summary */
+    .order-summary {
+      border: 1px solid #eee;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+    .order-summary h2 {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #5f5f5f;
+    }
+    .item-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .item-name {
+      font-weight: 500;
+      color: #333;
+    }
+    .item-price {
+      color: #333;
+    }
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 16px;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    /* Checkout Form */
+    .checkout-form {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 16px;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    label {
+      display: block;
+      font-size: 13px;
+      color: #666;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+    input[type="text"], input[type="email"],
+    input[type="password"], input[type="number"] {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 14px;
+      border: 1px solid #dcdcdc;
+      border-radius: 4px;
+      color: #333;
+    }
+    input[type="text"]:focus, input[type="email"]:focus,
+    input[type="password"]:focus, input[type="number"]:focus {
+      outline: none;
+      border-color: #00a2ff;
+    }
+
+    /* Button */
+    .checkout-button {
+      padding: 12px 16px;
+      background: #00a3e0; /* Stripe-like color */
+      border: none;
+      border-radius: 4px;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .checkout-button:hover {
+      background: #0089c4;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 12px;
+      color: #999;
+    }
+    .footer a {
+      color: #999;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="checkout-wrapper">
+    <div class="checkout-container">
+      <div class="branding">
+        <div class="branding-title">Mock Checkout</div>
+      </div>
+
+      <div class="order-summary">
+        <h2>Order Summary</h2>
+        <div class="item-row">
+          <div class="item-name">Land</div>
+          <div class="item-price">€20.00</div>
+        </div>
+        <div class="total-row">
+          <div>Total</div>
+          <div>€20.00</div>
+        </div>
+      </div>
+
+      <form class="checkout-form" id="checkoutForm">
+        <div class="form-group">
+          <label for="checkoutEmail">Email</label>
+          <input type="email" id="checkoutEmail" placeholder="you@example.com" required />
+        </div>
+        <div class="form-group">
+          <label for="checkoutCardNumber">Card Number</label>
+          <input type="text" id="checkoutCardNumber" placeholder="1234 1234 1234 1234" required />
+        </div>
+        <div class="form-group" style="display: flex; gap: 1rem;">
+          <div style="flex: 1;">
+            <label for="checkoutCardExpiry">Exp. (MM/YY)</label>
+            <input type="text" id="checkoutCardExpiry" placeholder="MM/YY" required />
+          </div>
+          <div style="flex: 1;">
+            <label for="checkoutCardCVC">CVC</label>
+            <input type="text" id="checkoutCardCVC" placeholder="123" required />
+          </div>
+        </div>
+
+        <button type="submit" class="checkout-button">Pay €20.00</button>
+      </form>
+
+      <div class="footer">
+        <p>Powered by <a href="#">Mock Stripe-Style</a></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("checkoutForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+  
+      const emailField = document.getElementById("checkoutEmail");
+      const email = emailField.value;
+      
+      const requestBody = {
+        email: email,
+      };
+  
+      fetch("https://swq5cv9rk2.execute-api.us-east-1.amazonaws.com/$default/sendEmail", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(requestBody)
+      })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("API response:", data);
+        alert("Email sent successfully via API Gateway!");
+        //redirect somewhere -- add cloudfront
+         window.location.href = "";
+      })
+      .catch((err) => {
+        console.error("API call failed:", err);
+        alert("Error calling API. Check console for details.");
+      });
+    });
+  </script>
+  
+</body>
+</html>

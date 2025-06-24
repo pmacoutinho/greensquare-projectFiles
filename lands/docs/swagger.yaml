@@ -1,0 +1,294 @@
+basePath: /api/lands/
+definitions:
+  main.CarbonCredit:
+    properties:
+      createdAt:
+        type: string
+      creditsAvailable:
+        type: number
+      creditsSold:
+        type: number
+      expirationDate:
+        type: string
+      id:
+        type: string
+      land:
+        allOf:
+        - $ref: '#/definitions/main.Land'
+        description: Relationships
+      landID:
+        type: string
+      listings:
+        items:
+          $ref: '#/definitions/main.CreditListing'
+        type: array
+      totalCredits:
+        type: number
+      verificationID:
+        type: string
+      verificationStandard:
+        type: string
+      vintageYear:
+        type: integer
+    type: object
+  main.CreditListing:
+    properties:
+      carbonCredit:
+        allOf:
+        - $ref: '#/definitions/main.CarbonCredit'
+        description: Relationships
+      carbonCreditsID:
+        type: string
+      createdAt:
+        type: string
+      id:
+        type: string
+      maximumPurchase:
+        type: number
+      minimumPurchase:
+        type: number
+      pricePerCredit:
+        type: number
+      status:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  main.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  main.Land:
+    properties:
+      averageHumidity:
+        type: number
+      averageTemperature:
+        type: number
+      biomeType:
+        type: string
+      carbonCredits:
+        items:
+          $ref: '#/definitions/main.CarbonCredit'
+        type: array
+      certificationAuthority:
+        type: string
+      certificationDate:
+        type: string
+      createdAt:
+        type: string
+      description:
+        type: string
+      elevationMeters:
+        type: number
+      forestDensityPercentage:
+        type: number
+      id:
+        type: string
+      latitude:
+        type: number
+      location:
+        type: string
+      longitude:
+        type: number
+      ownerID:
+        type: string
+      seller:
+        allOf:
+        - $ref: '#/definitions/main.Seller'
+        description: Relationships
+      sizeSquareMeters:
+        type: number
+      soilType:
+        type: string
+      title:
+        type: string
+      treeSpecies:
+        items:
+          type: string
+        type: array
+      updatedAt:
+        type: string
+      verificationStatus:
+        type: string
+    type: object
+  main.Seller:
+    properties:
+      id:
+        type: string
+      lands:
+        description: Relationships
+        items:
+          $ref: '#/definitions/main.Land'
+        type: array
+      userID:
+        type: string
+      verificationDate:
+        type: string
+      verificationStatus:
+        type: string
+    type: object
+info:
+  contact: {}
+  title: Lands API
+  version: "1.0"
+paths:
+  /api/lands:
+    post:
+      consumes:
+      - application/json
+      description: Creates a new land entry
+      parameters:
+      - description: Land object
+        in: body
+        name: land
+        required: true
+        schema:
+          $ref: '#/definitions/main.Land'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/main.Land'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
+      summary: Create a new land
+      tags:
+      - Lands
+  /api/lands/{id}:
+    delete:
+      description: Deletes a land entry
+      parameters:
+      - description: Land ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
+      summary: Delete a land
+      tags:
+      - Lands
+    get:
+      description: Retrieves a land entry by its ID
+      parameters:
+      - description: Land ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Land'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
+      summary: Get a land by ID
+      tags:
+      - Lands
+    put:
+      consumes:
+      - application/json
+      description: Updates an existing land entry
+      parameters:
+      - description: Land ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Land object
+        in: body
+        name: land
+        required: true
+        schema:
+          $ref: '#/definitions/main.Land'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Land'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
+      summary: Update a land
+      tags:
+      - Lands
+  /api/lands/health:
+    get:
+      description: Returns OK if the API is running
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Check API health
+      tags:
+      - Health
+  /api/lands/my:
+    get:
+      description: Retrieves all lands owned by the user specified in id path value
+      parameters:
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Items per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/main.Land'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
+      summary: Get all lands owned by a user
+      tags:
+      - Lands
+swagger: "2.0"

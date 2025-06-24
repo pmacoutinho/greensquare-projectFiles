@@ -1,0 +1,14 @@
+bin/
+/obj/
+/vendor/
+*.test
+*.exe
+*.out
+*.so
+*.a
+*.dSYM
+*.exe
+*.test
+*.out
+*.prof
+.env

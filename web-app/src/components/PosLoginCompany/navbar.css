@@ -1,0 +1,54 @@
+/* General Navbar Styling */
+.navbar {
+  background-color: #ffffff !important; /* Enforce the dark background color */
+  padding: 1rem 2rem; /* Add spacing */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  z-index: 1000; /* Ensure the Navbar is above other elements */
+}
+
+/* Ensure Navbar Brand and Content Styles */
+.navbar .navbar-brand,
+.navbar .navbar-content {
+  background-color: transparent !important; /* Remove any default backgrounds */
+  color: inherit !important; /* Inherit text color */
+}
+
+
+/* Navbar Links */
+.navbar-content .link {
+  color: #000000; /* Light color for links */
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+.navbar-content .link:hover {
+  color: #1abc9c; /* Highlight links on hover */
+}
+
+/* Button Styling */
+.navbar .button {
+  background-color: #16a085 !important; /* Primary background color */
+  color: #ecf0f1 !important; /* Light text color */
+  border: none !important; /* Remove any borders */
+  padding: 0.5rem 1rem !important; /* Adjust padding */
+  font-weight: bold !important; /* Make text bold */
+  border-radius: 4px !important; /* Add rounded corners */
+  transition: background-color 0.3s ease-in-out !important; /* Smooth hover transition */
+}
+
+.navbar .button:hover {
+  background-color: #1abc9c !important; /* Lighter shade for hover */
+  color: #ffffff !important; /* Ensure text remains readable */
+}
+
+/* Responsive Button Styling */
+@media (max-width: 768px) {
+  .navbar .button {
+    width: 100% !important; /* Full width on smaller screens */
+    text-align: center !important; /* Center text */
+  }
+}
+
+
+

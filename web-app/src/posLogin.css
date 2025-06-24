@@ -1,0 +1,283 @@
+.section {
+    display: block; /* Default for sections */
+    flex-direction: column; /* Only if using flexbox */
+    padding: 2rem;
+    background-color: #f9f9f9; /* Light background for contrast */
+}
+
+.content-box2 {
+    width: 1600px;
+    height: 870px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: left;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 40px;
+
+}
+.content-box2 h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #2c3e50;
+    text-align: center;
+  }
+
+
+h1 {
+    font-size: 2rem;
+    color: #333;
+}
+
+.button-group {
+    margin-bottom: 40px;
+    margin-right: 10px; /* Adjust spacing between buttons */
+}
+
+
+.button-group:hover {
+background-color: #c7c7c2; /* Add a hover effect */
+}
+
+
+/* Style for the content box */
+.content-box2 {
+    max-width: 1600px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    font-family: 'Roboto', sans-serif;
+    margin: 40px auto;
+  }
+
+  
+
+  
+  /* Style for the form heading */
+  .content-box2 h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #2c3e50;
+    text-align: center;
+  }
+
+
+  /* Style for the container that holds the form */
+.form-content {
+    display: flex;
+    justify-content: center;  /* Horizontally centers the div */
+    align-items: center;      /* Vertically centers the div */
+    height: 20vh;            /* Make it take up the full height of the viewport */
+    width: 100%;              /* Ensures it takes the full width */
+    padding: 0 20px;          /* Add some padding to the sides */
+    box-sizing: border-box;
+  }
+  
+  /* Input field styling */
+  .input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    transition: border-color 0.3s;
+  }
+  
+  .input:focus {
+    border-color: #3498db;
+    outline: none;
+  }
+  
+  /* Styling for the submit and reset buttons */
+  button {
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    margin: 10px 0;
+  }
+  
+  button[type="submit"] {
+    background-color: #4999cf;
+    color: white;
+    border: none;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #2aad26;
+  }
+  
+  button[type="reset"] {
+    background-color: #79726d;
+    color: white;
+    border: none;
+  }
+  button[type="reset"]:hover {
+    background-color: #f39c12;
+  }
+  
+  /* Responsive form layout */
+  @media (max-width: 768px) {
+    .content-box2 {
+      padding: 20px;
+      margin: 20px;
+    }
+  
+    .input {
+      padding: 10px;
+    }
+  
+    button {
+      width: 100%;
+      padding: 14px;
+    }
+  }
+
+  .button-add-land {
+    background-color: rgb(169, 169, 173);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 30px;
+  }
+  
+  .button-add-land:hover {
+    background-color: rgb(216, 216, 226);
+  }
+  
+  /* Popup Overlay */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark background with transparency */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  /* Popup Content */
+  .popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px; /* Adjust width as necessary */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: left;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  
+  /* Heading Styles */
+  .popup-content h2 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+  }
+  
+  /* Information Paragraphs */
+  .popup-content p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #555;
+  }
+  
+  /* Label and Input Fields */
+  .popup-content label {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .popup-content input {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Buttons */
+  .popup-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+  
+  .popup-buttons button {
+    background-color: #5589c0;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .popup-buttons button:hover {
+    background-color: #666675;
+  }
+  
+  .popup-buttons button:first-child {
+    background-color: #f44336; /* Red color for close button */
+  }
+  
+  .popup-buttons button:first-child:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+  }
+
+  .popup-buttons .close-button2 {
+    background-color: #f0f0f0;
+    color: #ffffff;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.popup-buttons .accept-button2 {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.popup-buttons .reject-button2 {
+    background-color: #666564;
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.popup-buttons .close-button2:hover {
+    background-color: #e0e0e0;
+}
+
+.popup-buttons .accept-button2:hover {
+    background-color: #45a049;
+}
+
+.popup-buttons .reject-button2:hover {
+    background-color: #d32f2f;
+}
+
+.table-marketplace{
+    margin-top: 20px;
+}  

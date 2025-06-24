@@ -1,0 +1,605 @@
+/* Hero Section */
+.hero {
+  position: relative;
+  height: 110vh;
+  overflow: hidden;
+}
+.hero h1 {
+  margin-bottom: 20px; /* Space below the h1 */
+  font-size: 3rem;
+  color: white;
+  text-shadow: 3px 3px 8px rgba(33, 172, 40, 0.5); /* Shadow added */
+}
+
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  text-align: center;
+}
+
+.hero-overlay h1 {
+  margin-top: 20%;
+  font-size: 3rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.hero-overlay p{
+  text-decoration: underline;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Section Styling */
+.section {
+  height: 110vh; /* Full viewport height */
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Content Box Styling */
+.content-box {
+  max-width: 1600px;
+  height: 870px;
+  background-color: #fcfbfb;
+  border-radius: 10px;
+  padding: 30px;
+  text-align: left;
+  font-family: 'Roboto', sans-serif;
+  margin-top: 40px;
+  margin-left: 130px;
+}
+
+/* Typography for Content */
+.content-box h1 {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  color: #688d6a;
+  text-align: center;
+}
+.content-box h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #2c3e50;
+  text-align: left;
+}
+
+
+.content-box p, .content-box ul {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: #555;
+}
+
+/* Ensure that the ul has the correct list style */
+.content-box ul {
+  padding-left: 20px;  /* Indentation for list items */
+  list-style-type: disc;  /* Ensure bullet points (dots) are displayed */
+}
+
+/* Ensure list items have appropriate spacing */
+.content-box li {
+  margin-bottom: 10px;  /* Add space between list items */
+}
+.about-image-wrapper {
+  display: flex;
+  justify-content: center; /* Center the image horizontally */
+  align-items: center; /* Center the image vertically */
+  height: 400px; /* Set a fixed height for the image container */
+  margin-top: 20px; /* Add some space above the image */
+}
+
+.about-image {
+  max-width: 40%; /* Make sure the image doesn’t exceed the container width */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Ensure the image fills the container without distortion */
+  border-radius: 10px; /* Optional: Add rounded corners */
+}
+
+#section1 { background-color: #ffffff; } /* Example background colors */
+#section2 { background-color: #fcfbfb; }
+#section3 { background-color: #ffffff; }
+#section4 { background-color: #fcfbfb; }
+#section5 { background-color: #ffffff; }
+
+
+
+.hero-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  z-index: 1;
+}
+
+.team-container {
+  display: flex;
+  justify-content: space-around; /* Adjust spacing */
+  flex-wrap: wrap; /* Allow wrapping if there are too many members */
+  gap: 20px; /* Space between items */
+}
+.team-member {
+  width: 200px; /* Adjust the width of each team member */
+  text-align: center; /* Center the text */
+}
+.team-member img {
+  width: 100%; /* Make sure the image is responsive */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 50%; /* Optional: make images circular */
+}
+.team-member a {
+  font-size: 1rem; /* Adjust email size */
+  color: #007BFF; /* Style the email link */
+}
+
+.parent {
+  margin: 1rem;
+  padding: 1rem;
+  text-align: left;
+  display: flex;                     /* Use flex to align children side by side */
+  justify-content: center;       /* Align child divs to the left */
+}
+
+.child {
+  border-radius: 40px;
+  padding: 5rem;
+  background-color: #e3cba5;
+  margin-right:40px;                /* Optional: adds space between child divs */
+  margin-left:120px;                /* Optional: adds space between child divs */
+
+}
+
+.parent2 {
+  margin: 0.5rem;
+  padding: 0.5rem;
+  text-align: left;
+  display: flex;                     /* Use flex to align children side by side */
+  justify-content: center;       /* Align child divs to the left */
+}
+
+.child2{
+  border-radius: 40px;
+  padding: 2rem;
+  background-color: #c3b091;
+  margin-right:80px;                /* Optional: adds space between child divs */
+  margin-left:60px;                /* Optional: adds space between child divs */
+
+}
+
+/* Style for the parent container */
+.parent3 {
+  margin: 0.5rem;
+  padding: 0.5rem;
+  text-align: left;
+  display: flex;                     /* Use flex to align children side by side */
+  justify-content: center;           /* Align child divs horizontally at the center */
+  align-items: center;               /* Center content vertically */
+  height: 50vh;                     /* Ensure the parent takes up full height */
+}
+
+/* Style for the child container */
+.child3 {
+  margin-top: 500px;
+  height: 300px;
+  width: 900px;
+  border-radius: 40px;
+  padding: 2rem;
+  background-color: #b99e8d;
+  margin-bottom: 500px;                         /* Reset margin to ensure proper centering */
+}
+.child3 ul {
+  display: flex;                    /* Flexbox for the <ul> */
+  flex-direction: column;               /* Arrange <li> horizontally */
+  justify-content: space-evenly;     /* Distribute space evenly between <li> elements */
+  width: 100%;                       /* Take up full width of the container */
+  padding: 0;                        /* Remove padding */
+  margin: 0;                         /* Remove margin */
+}
+
+/* Style for each <li> */
+.child3 li {
+  list-style: none;                 /* Remove default bullet points */
+  padding: 1.5rem 9rem;             /* Add padding inside each <li> */
+}
+.parent4 {
+  margin: 0.5rem;
+  padding: 0.5rem;
+  text-align: left;
+  display: flex;                     /* Use flex to align children side by side */
+  justify-content: center;           /* Align child divs horizontally at the center */
+  align-items: center;               /* Center content vertically */
+  height: 60vh;                     /* Ensure the parent takes up full height */
+}
+
+/* Style for the child container */
+.child4 {
+  margin-top: 500px;
+  height: 430px;
+  width: 900px;
+  border-radius: 40px;
+  padding: 2rem;
+  background-color: #a3a378;
+  margin-bottom: 500px;                         /* Reset margin to ensure proper centering */
+}
+.child4 ul {
+  display: flex;                    /* Flexbox for the <ul> */
+  flex-direction: column;               /* Arrange <li> horizontally */
+  justify-content: space-evenly;     /* Distribute space evenly between <li> elements */
+  width: 100%;                       /* Take up full width of the container */
+  padding: 0;                        /* Remove padding */
+  margin: 0;                         /* Remove margin */
+}
+
+/* Style for each <li> */
+.child4 li {
+  list-style: none;                 /* Remove default bullet points */
+  padding: 1.5rem 9rem;             /* Add padding inside each <li> */
+}
+
+
+/* Style for the team section */
+.section4 {
+  padding: 60px 0;
+  text-align: center;
+  background-color: #f5f5f5;
+}
+
+.section4 h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.team-container {
+  display: flex;
+  justify-content: center; /* Center items horizontally */
+  gap: 30px;
+  flex-wrap: wrap; /* Allow wrapping if needed */
+}
+
+.team-member {
+  margin-top: 150px;
+  display: flex;              /* Enable flexbox on team-member */
+  flex-direction: column;     /* Stack content vertically */
+  align-items: center;        /* Center content horizontally */
+  justify-content: flex-start; /* Align content at the top */
+  width: 300px;               /* Increased width */
+  background-color: #ffffff;
+  padding: 30px;              /* Increased padding */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-member:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.team-member img {
+  width: 180px;  /* Increased image size */
+  height: 180px; /* Increased image size */
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.team-member h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.team-member a {
+  font-size: 1rem;
+  color: #007BFF;
+  text-decoration: none;
+}
+
+.team-member a:hover {
+  text-decoration: underline;
+}
+
+.section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background-color: #fcfbfb;}
+
+.content-box1 {
+  display: flex;
+  flex-direction: row; /* Arrange children in a row */
+  max-width: 1700px;
+  width: 100%;
+  height: 90%;
+  gap: 5rem; /* Add space between the left and right sides */
+}
+
+.left-side {
+  flex: 0.5; /* Control the width of the left-side */
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Center the image vertically */
+}
+
+.left-side img {
+  width: 140%; /* Make the image responsive */
+  height: 80%; /* Maintain aspect ratio */
+  max-width: none; /* Allow the image to expand to full width without restriction */
+  border-radius: 20px; /* Optional: Add rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add subtle shadow */
+}
+
+.right-side {
+  flex: 0.5; /* Take up 50% of the width */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align items to the top */
+  align-items: flex-start; /* Align content to the left */
+  color: #333; /* Darker text for readability */
+  text-align: left;
+  padding-top: 20px; /* Space from the top */
+  padding-left: 20px; /* Space from the left */
+}
+
+.right-side h1 {
+  color: #688d6a;
+
+  font-size: 4.5rem;
+  margin-bottom: 1rem; /* Space below the h1 */
+  margin-top: 110px; /* Optional: remove any default margin at the top */
+  margin-left: 140px;
+}
+
+.right-side p {
+  margin-top: 1rem; /* Adds space between each paragraph and the h1 */
+  font-size: 1.5rem;
+  line-height: 1.6;
+}
+
+.mission-points {
+  list-style: none;  /* Remove default list styles */
+  padding-left: 0;
+}
+
+.mission-points p {
+  position: relative;  /* Positioning for the checkmark */
+  margin-left: 20px;  /* Add some space from the left */
+}
+
+.mission-points p::before {
+  content: '✔';  /* Unicode for checkmark symbol */
+  position: absolute;  /* Position the checkmark */
+  left: -25px;  /* Position it to the left of the text */
+  top: 50%;  /* Vertically center the checkmark */
+  transform: translateY(-50%);  /* Fine-tune vertical alignment */
+  font-size: 20px;  /* Adjust size of the checkmark */
+  color: green;  /* Green color for the checkmark */
+}
+/* content-box2 styling */
+.content-box2 {
+  display: flex;
+  flex-direction: row; /* Arrange children in a row */
+  max-width: 1700px;
+  width: 100%;
+  height: 90%;
+  gap: 1rem; /* Add space between the left and right sides */
+  background-color: #ffffff;
+}
+
+.left-side2 {
+  background-color: #fcfbfb;
+  flex: 0.6; /* Left side takes up 50% of the width */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start; /* Align content to the left */
+  text-align: left;
+  color: #333; /* Darker text for readability */
+  
+  padding-left: 140px;
+  padding-bottom: 160px;
+}
+
+.left-side2 h1 {
+  color: #688d6a;
+  font-size: 4rem;
+}
+
+.left-side2 h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.left-side2 p {
+  font-size: 1.3rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  margin-left:0px ;
+}
+
+.right-side2 {
+  background-color: #fcfbfb;
+    flex:0.4;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);  /* Create 2 equal columns for the first two images */
+  grid-template-rows: auto;  /* Automatically adjust row height */
+  gap: 0px;  /* Space between items */
+  justify-items: center;  /* Center the items horizontally */
+}
+.right-side2 img {
+  margin-left: 90px;
+  width: 50%; /* Make the image responsive */
+  height: auto;
+  max-width: 500px; /* Restrict the image to a max width */
+  border-radius: 10px; /* Optional: Rounded corners */
+}
+.mission-points2 p {
+  position: relative;  /* Positioning for the checkmark */
+  margin-left: 140px;  /* Add some space from the left */
+}
+
+.mission-points2 p::before {
+  content: '✔';  /* Unicode for checkmark symbol */
+  position: absolute;  /* Position the checkmark */
+  left: -25px;  /* Position it to the left of the text */
+  top: 50%;  /* Vertically center the checkmark */
+  transform: translateY(-50%);  /* Fine-tune vertical alignment */
+  font-size: 20px;  /* Adjust size of the checkmark */
+  color: green;  /* Green color for the checkmark */
+}
+.content-box2{
+  display: flex;
+  flex-direction: row; /* Arrange children in a row */
+  max-width: 1700px;
+  width: 100%;
+  height: 90%;
+  gap: 12rem; /* Add space between the left and right sides */
+  background-color: #ffffff;
+  
+}
+
+.portfolio {
+  margin-top: 160px;
+  margin-left: 130px;
+  width: 100%;  /* Adjust width to make images smaller */
+  max-width: 300px;  /* Optional: Set a max width for the images */
+}
+.marketplace {
+  margin-top: 350px;
+  width: 120%;  /* Adjust width to make images smaller */
+  max-width: 300px;  /* Optional: Set a max width for the images */
+}
+.csupport {
+  width: 90%;
+  max-width: 300px;  /* Optional: Set a max width for the images */
+  grid-column: 1 / 3;  /* Span across both columns */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0px;  /* Optional: Add some space above the third image */
+  margin-bottom: 190px;
+}
+
+.about-image {
+  width: 1200%;  /* Make images responsive */
+  height: auto;  /* Keep aspect ratio */
+  border-radius: 8px;  /* Optional: Rounded corners */
+}
+
+
+.content-box3 {
+  max-width: 2000px; /* Increase the max-width to make the content box wider */
+  height: 1000px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 30px;
+  text-align: left;
+  font-family: 'Roboto', sans-serif;
+  margin-top: 40px;
+  width: 100%; /* Make sure it takes full width of the parent container */
+}
+.content-box3 h1{
+  text-align: center;
+  padding: 20px;
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  color: #688d6a;
+}
+
+.content-box3 p{
+  font-size: 1.3rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Card header */
+.card-header {
+  padding: 30px;
+  border-bottom: 1px solid #ddd;
+}
+
+.card-header .text-tiny {
+  font-size: 12px;
+  color: #666;
+}
+
+.card-header .text-default-500 {
+  font-size: 14px;
+  color: #999;
+}
+
+.card-header h4 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+/* Card body */
+.card-body {
+  padding: 16px;
+  display: flex; /* Use flexbox for aligning the image */
+  justify-content: center; /* Center the image horizontally */
+  align-items: center; /* Center the image vertically */
+}
+
+.card-body img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  max-width: 100%; /* Ensure the image doesn't stretch beyond the container */
+}
+
+.object-cover {
+  display: block !important;
+  opacity: 1 !important;
+}
+
+/* Card container */
+.card-container {
+  display: flex;
+  gap: 20px; /* Space between cards */
+  justify-content: space-between; /* Distribute space between cards */
+}
+
+.card-container .py-4 {
+  flex: 1 1 calc(33% - 20px); /* Adjust width for 3 cards per row */
+  max-width: 350px; /* Individual card width */
+  height: 730px !important;
+
+}
+
+
+

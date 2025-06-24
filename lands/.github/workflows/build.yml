@@ -1,0 +1,114 @@
+name: Build and Deploy Flask API
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Build and push Docker image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: ${{ secrets.REPO_NAME }}
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        docker build \
+          -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+    - name: Cleanup old images
+      run: |
+            IMAGES_TO_KEEP=2
+    
+            IMAGES=$(aws ecr describe-images \
+              --repository-name ${{ secrets.REPO_NAME }} \
+              --query 'sort_by(imageDetails,& imagePushedAt)[*].imageDigest' \
+              --output json)
+            
+            TOTAL_IMAGES=$(echo $IMAGES | jq length)
+            if [ $TOTAL_IMAGES -gt $IMAGES_TO_KEEP ]; then
+              # Get the list of images to delete (excluding the most recent ones)
+              IMAGES_TO_DELETE=$(echo $IMAGES | jq -r '.[:(-2)] | .[]')
+              
+              for digest in $IMAGES_TO_DELETE; do
+                aws ecr batch-delete-image \
+                  --repository-name ${{ secrets.REPO_NAME }} \
+                  --image-ids imageDigest=$digest
+              done
+            fi
+  
+    - name: Get AWS Account ID
+      id: get-aws-account
+      run: |
+            ACCOUNT_ID=$(aws sts get-caller-identity --query "Account" --output text)
+            echo "account_id=$ACCOUNT_ID" >> $GITHUB_OUTPUT
+
+    - name: Update ECS service with new task definition
+      run: |
+                      # Register new task definition
+                      TASK_DEFINITION=$(aws ecs register-task-definition \
+                        --family greensquare-lands-task \
+                        --network-mode awsvpc \
+                        --requires-compatibilities "FARGATE" \
+                        --cpu "256" \
+                        --memory "512" \
+                        --execution-role-arn arn:aws:iam::${{ steps.get-aws-account.outputs.account_id }}:role/greensquare-ecs-execution-role \
+                        --task-role-arn arn:aws:iam::${{ steps.get-aws-account.outputs.account_id }}:role/greensquare-ecs-task-role \
+                        --container-definitions "[{
+                          \"name\":\"lands\",
+                          \"image\":\"${{ steps.get-aws-account.outputs.account_id }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.REPO_NAME }}:${{ github.sha }}\",
+                          \"memory\": 512,
+                          \"cpu\": 256,
+                          \"essential\":true,
+                          \"portMappings\":[{\"containerPort\":8080,\"hostPort\":8080}],
+                          \"logConfiguration\": {
+                            \"logDriver\": \"awslogs\",
+                            \"options\": {
+                              \"awslogs-group\": \"/ecs/lands\",
+                              \"awslogs-region\": \"${{ secrets.AWS_REGION }}\",
+                              \"awslogs-stream-prefix\": \"lands\"
+                            }
+                          }  
+                        }]"
+                      )
+              
+                      # Get the task definition ARN
+                      TASK_REVISION=$(echo $TASK_DEFINITION | jq -r '.taskDefinition.taskDefinitionArn')
+
+                      RUNNING_TASKS=$(aws ecs list-tasks \
+                        --cluster greensquare-ecs-cluster \
+                        --service-name greensquare-lands-service \
+                        --desired-status RUNNING \
+                        --query 'taskArns[]' \
+                        --output text)
+                      if [ ! -z "$RUNNING_TASKS" ]; then
+                        echo "Stopping running tasks for lands"
+                        for task in $RUNNING_TASKS; do
+                          aws ecs stop-task --cluster greensquare-ecs-cluster --task $task
+                        done
+                      fi
+                      
+                      # Update the service with the new task definition
+                      aws ecs update-service \
+                        --cluster greensquare-ecs-cluster \
+                        --service greensquare-lands-service \
+                        --task-definition $TASK_REVISION \
+                        --force-new-deployment

@@ -1,0 +1,453 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Lands API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "basePath": "/api/lands/",
+    "paths": {
+        "/api/lands": {
+            "post": {
+                "description": "Creates a new land entry",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Lands"
+                ],
+                "summary": "Create a new land",
+                "parameters": [
+                    {
+                        "description": "Land object",
+                        "name": "land",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.Land"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/main.Land"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/main.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/main.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/lands/health": {
+            "get": {
+                "description": "Returns OK if the API is running",
+                "tags": [
+                    "Health"
+                ],
+                "summary": "Check API health",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/lands/my": {
+            "get": {
+                "description": "Retrieves all lands owned by the user specified in id path value",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Lands"
+                ],
+                "summary": "Get all lands owned by a user",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number (default: 1)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Items per page (default: 10)",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/main.Land"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/main.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/main.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/lands/{id}": {
+            "get": {
+                "description": "Retrieves a land entry by its ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Lands"
+                ],
+                "summary": "Get a land by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Land ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.Land"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/main.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/main.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Updates an existing land entry",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Lands"
+                ],
+                "summary": "Update a land",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Land ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Land object",
+                        "name": "land",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.Land"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/main.Land"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/main.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/main.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Deletes a land entry",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Lands"
+                ],
+                "summary": "Delete a land",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Land ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/main.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/main.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "main.CarbonCredit": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "creditsAvailable": {
+                    "type": "number"
+                },
+                "creditsSold": {
+                    "type": "number"
+                },
+                "expirationDate": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "land": {
+                    "description": "Relationships",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/main.Land"
+                        }
+                    ]
+                },
+                "landID": {
+                    "type": "string"
+                },
+                "listings": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/main.CreditListing"
+                    }
+                },
+                "totalCredits": {
+                    "type": "number"
+                },
+                "verificationID": {
+                    "type": "string"
+                },
+                "verificationStandard": {
+                    "type": "string"
+                },
+                "vintageYear": {
+                    "type": "integer"
+                }
+            }
+        },
+        "main.CreditListing": {
+            "type": "object",
+            "properties": {
+                "carbonCredit": {
+                    "description": "Relationships",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/main.CarbonCredit"
+                        }
+                    ]
+                },
+                "carbonCreditsID": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "maximumPurchase": {
+                    "type": "number"
+                },
+                "minimumPurchase": {
+                    "type": "number"
+                },
+                "pricePerCredit": {
+                    "type": "number"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "main.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "main.Land": {
+            "type": "object",
+            "properties": {
+                "averageHumidity": {
+                    "type": "number"
+                },
+                "averageTemperature": {
+                    "type": "number"
+                },
+                "biomeType": {
+                    "type": "string"
+                },
+                "carbonCredits": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/main.CarbonCredit"
+                    }
+                },
+                "certificationAuthority": {
+                    "type": "string"
+                },
+                "certificationDate": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "elevationMeters": {
+                    "type": "number"
+                },
+                "forestDensityPercentage": {
+                    "type": "number"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "latitude": {
+                    "type": "number"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "longitude": {
+                    "type": "number"
+                },
+                "ownerID": {
+                    "type": "string"
+                },
+                "seller": {
+                    "description": "Relationships",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/main.Seller"
+                        }
+                    ]
+                },
+                "sizeSquareMeters": {
+                    "type": "number"
+                },
+                "soilType": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "treeSpecies": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "verificationStatus": {
+                    "type": "string"
+                }
+            }
+        },
+        "main.Seller": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "lands": {
+                    "description": "Relationships",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/main.Land"
+                    }
+                },
+                "userID": {
+                    "type": "string"
+                },
+                "verificationDate": {
+                    "type": "string"
+                },
+                "verificationStatus": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
